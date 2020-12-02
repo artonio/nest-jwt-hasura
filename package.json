@@ -1,6 +1,6 @@
 {
   "name": "nest-jwt-hasura",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "NestJS Hasura Starter with JWT Auth",
   "author": "Anton Sukhovatkin",
   "private": false,

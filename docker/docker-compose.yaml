@@ -1,0 +1,36 @@
+version: '3.6'
+services:
+  postgres:
+    image: postgres:12
+    container_name: nest-jwt-postgres
+    restart: always
+    volumes:
+      - hasura_db_data:/var/lib/postgresql/nest-jwt-data
+    expose:
+      - 5432
+    ports:
+      - 5430:5432
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+  graphql-engine:
+    image: hasura/graphql-engine:v1.3.3
+    container_name: nest-jwt-hasura
+    ports:
+    - "8081:8080"
+    depends_on:
+    - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS512", "key": "AQang2XTwWG8odE3WiI-0bc0f3O0Gq0h3SDs2rp6Kl00P-MOHzB6_DjKi525E0B5-kvacmu1kjc3bQQp7FQusA"}'
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+volumes:
+  hasura_db_data:
+    name: nest-jwt-postgres-volume
+

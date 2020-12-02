@@ -1,0 +1,48 @@
+- table:
+    schema: public
+    name: projects
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+- table:
+    schema: public
+    name: roles
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+- table:
+    schema: public
+    name: users
+  object_relationships:
+  - name: role
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: roles
+        column_mapping:
+          id: user_id
+  array_relationships:
+  - name: projects
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: projects
+  - name: roles
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: roles
+  select_permissions:
+  - role: observer
+    permission:
+      columns:
+      - id
+      - username
+      filter: {}

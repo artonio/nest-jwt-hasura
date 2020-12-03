@@ -24,6 +24,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->  
 
 ## Description
+Source code for the [blog post](https://blog.exceptionfound.com/2020/12/03/nestjs-hasura-integration-via-schema-stitching/)
 
 [NestJS](https://github.com/nestjs/nest) project demonstrating the following features:
 
